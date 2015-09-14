@@ -4,9 +4,7 @@ export default class Tile extends React.Component {
         this.state = {
             style: {
                 left: 0,
-                top: 0,
-                width: '256px',
-                height: '256px'
+                top: 0
             },
             src: 'empty.png'
 

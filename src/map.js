@@ -24,8 +24,7 @@ export default class Map extends React.Component {
     render() {
         var layers = this.renderLayers();
         return (
-            <div style={this.state.style}
-                 onResize={this.resize}>
+            <div onResize={this.resize}>
                 {layers}
             </div>
         )
@@ -61,3 +60,8 @@ export default class Map extends React.Component {
         this.setState({coords: {lat, lon}})
     }
 }
+
+React.render(
+	<Map />,
+	document.body
+);

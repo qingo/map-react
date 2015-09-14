@@ -1,18 +1,19 @@
 const PI = Math.PI;
-const ARC = PI / 180; //Ã¿¶ÈµÄ»¡¶ÈÖµ
-const Radius = 6378137; //³àµÀ°ë¾¶
-const Equator = 2 * PI * Radius; //³àµÀ³¤¶È
-const SemiEquator = Equator / 2.0; //³àµÀ°ëÖÜ³¤
+const ARC = PI / 180; //æ¯åº¦çš„å¼§åº¦å€¼
+const Radius = 6378137; //èµ¤é“åŠå¾„
+const Equator = 2 * PI * Radius; //èµ¤é“é•¿åº¦
+const SemiEquator = Equator / 2.0; //èµ¤é“åŠå‘¨é•¿
 
 export default class Coordinate {
     constructor(latitude, longtitude, zoom) {
+	    console.log(latitude, longtitude, zoom);
         this.latitude = latitude;
         this.longitude = longtitude;
         this.zoom = zoom;
     }
 
     /**
-     * @desc Ã¿Ò»ÏñËØµÄ¶ÔÓ¦µÄµØÀí¾àÀëÖµ
+     * @desc æ¯ä¸€åƒç´ çš„å¯¹åº”çš„åœ°ç†è·ç¦»å€¼
      * @param size
      * @param zoom
      * @returns {number}
@@ -22,18 +23,20 @@ export default class Coordinate {
     }
 
     /**
-     * @desc ×ª»»ÎªÄ«¿¨ÍĞ×ø±ê
+     * @desc è½¬æ¢ä¸ºå¢¨å¡æ‰˜åæ ‡
      * @returns {{x: number, y: number}}
      */
     toMercator() {
         var x = this.longitude * SemiEquator / 180.0,
             y = Math.log(Math.tan((90 + this.latitude) * PI / 360.0)) / (PI / 180.0);
+	    console.log(y);
         y = y * SemiEquator / 180.0;
+	    console.log(x, y);
         return {x, y}
     }
 
     /**
-     * @desc ×ª»»ÎªÏñËØµã
+     * @desc è½¬æ¢ä¸ºåƒç´ ç‚¹
      * @param size
      * @param zoom
      * @returns {{x: number, y: number}}
@@ -43,11 +46,13 @@ export default class Coordinate {
         var res = this.resolute(size, zoom);
         var x = (mercator.x + SemiEquator) / res,
             y = (mercator.y + SemiEquator) / res;
+	    console.log(res);
+	    console.log(x, y);
         return {x, y}
     }
 
     /**
-     * @desc ×ª»»Îª´Å¿é
+     * @desc è½¬æ¢ä¸ºç£å—
      * @param size
      * @param zoom
      * @returns {{x: number, y: number}}
@@ -56,7 +61,7 @@ export default class Coordinate {
         var pixel = this.toPixel(size, zoom);
         var x = Math.ceil(pixel.x / size) - 1,
             y = Math.ceil(pixel.y / size) - 1;
-        return {x, y}
+	    console.log(x, y);
+	    return {x, y}
     }
 }
-

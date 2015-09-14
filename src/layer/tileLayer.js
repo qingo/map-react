@@ -7,28 +7,20 @@ export default class TileLayer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tiles: [],
-            style: {
-                position: 'absolute',
-                overflow: 'hidden',
-                width: '100%',
-                height: '100%'
-            }
+            tiles: []
         }
     }
 
     render() {
         return (
-            <div style={this.state.style}>
+            <div>
                 {this.state.tiles}
             </div>
         )
     }
 
     componentDidMount(){
-        console.log(this.renderTiles());
         this.setState({tiles: this.renderTiles()});
-        console.log(this.state.tiles);
     }
 
     renderTiles() {
@@ -47,7 +39,6 @@ export default class TileLayer extends React.Component {
                              z={coords.zoom}
                 />)
         });
-        console.log(tiles);
         return tiles;
     }
 
